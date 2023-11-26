@@ -1,3 +1,5 @@
+package utils;
+
 /**
  * A record that stores two objects.
  * @param <TFirst> The type of the first object.
