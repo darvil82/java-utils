@@ -1,4 +1,3 @@
-import lanat.utils.displayFormatter.TextFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -8,6 +7,7 @@ import java.util.stream.Stream;
 public final class UtlString {
 	private UtlString() {}
 
+	private static final char ESCAPE_CHAR = 0x1b;
 
 	/**
 	 * Get the longest line from the contents of a string. Lines are separated by newlines.
@@ -178,7 +178,7 @@ public final class UtlString {
 	 * Remove all formatting colors or format from the string
 	 */
 	public static @NotNull String removeSequences(@NotNull String str) {
-		return str.replaceAll(TextFormatter.ESC + "\\[[\\d;]*m", "");
+		return str.replaceAll(ESCAPE_CHAR + "\\[[\\d;]*m", "");
 	}
 
 	/**
