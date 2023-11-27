@@ -3,12 +3,14 @@ package utils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public final class UtlString {
 	private UtlString() {}
 
+	/** Escape character used for terminal formatting */
 	private static final char ESCAPE_CHAR = 0x1b;
 
 	/**
@@ -18,8 +20,20 @@ public final class UtlString {
 		return Stream.of(str.split("\n")).min((a, b) -> b.length() - a.length()).orElse("");
 	}
 
+	public static boolean allCharsMatch(@NotNull String str, @NotNull Predicate<Character> predicate) {
+		for (char chr : str.toCharArray()) {
+			if (!predicate.test(chr)) return false;
+		}
+		return true;
+	}
+
 	/**
-	 * Check if a string is a valid name for it to be used in an element.
+	 * Check if a string is a valid name. A valid name must:
+	 * <ul>
+	 * <li>Contain at least one character</li>
+	 * <li>Start with an alphabetic character</li>
+	 * <li>Only contain alphabetic characters, numbers, underscores or dashes</li>
+	 * </ul>
 	 * @param name The name to check.
 	 * @throws IllegalArgumentException if the name is invalid.
 	 */
@@ -28,10 +42,13 @@ public final class UtlString {
 			throw new IllegalArgumentException("name must contain at least one character");
 
 		if (!Character.isAlphabetic(name.charAt(0)))
-			throw new IllegalArgumentException("name must start with an alphabetic character or an underscore");
+			throw new IllegalArgumentException("name must start with an alphabetic character");
 
-		if (!name.matches("[a-zA-Z0-9_-]+"))
-			throw new IllegalArgumentException("name must only contain alphanumeric characters and underscores and dashes");
+		if (!UtlString.allCharsMatch(
+			name,
+			chr -> Character.isAlphabetic(chr) || Character.isDigit(chr) || chr == '_' || chr == '-'
+		))
+			throw new IllegalArgumentException("name must only contain alphabetic characters, numbers, underscores and dashes");
 
 		return name;
 	}
