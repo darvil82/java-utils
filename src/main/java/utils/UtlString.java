@@ -20,6 +20,12 @@ public final class UtlString {
 		return Stream.of(str.split("\n")).min((a, b) -> b.length() - a.length()).orElse("");
 	}
 
+	/**
+	 * Returns {@code true} if all characters in the given {@code str} match the given {@code predicate}.
+	 * @param str The string to check.
+	 * @param predicate The predicate to test the characters with.
+	 * @return {@code true} if all characters in the given {@code str} match the given {@code predicate}.
+	 */
 	public static boolean allCharsMatch(@NotNull String str, @NotNull Predicate<Character> predicate) {
 		for (char chr : str.toCharArray()) {
 			if (!predicate.test(chr)) return false;
