@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public final class UtlReflection {
 	private UtlReflection() {}
@@ -64,7 +63,6 @@ public final class UtlReflection {
 		);
 	}
 
-
 	/**
 	 * Instantiates the given class with the given arguments.
 	 * @param clazz The class to instantiate.
@@ -100,17 +98,5 @@ public final class UtlReflection {
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	/**
-	 * Returns a stream of all methods in the given class.
-	 * If the given class is an anonymous class, then the methods of the superclass are returned.
-	 * @param clazz The class to get the methods of.
-	 * @return A stream of all methods in the given class.
-	 */
-	public static Stream<Method> getMethods(Class<?> clazz) {
-		if (clazz.isAnonymousClass())
-			return UtlReflection.getMethods(clazz.getSuperclass());
-		return Stream.of(clazz.getDeclaredMethods());
 	}
 }

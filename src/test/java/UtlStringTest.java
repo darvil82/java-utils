@@ -3,7 +3,7 @@ import utils.UtlString;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UtlStringTest {
+public class UtlStringTest {
 
 	@Test
 	void testGetLongestLine() {
