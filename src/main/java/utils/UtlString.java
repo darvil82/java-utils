@@ -171,6 +171,7 @@ public final class UtlString {
 
 	/**
 	 * Centers a string in a given width. {@code padChar} is used to fill the remaining space.
+	 * The padding is equal on both sides of the string, even if the width is odd.
 	 * <p>
 	 * If the string is longer than the width, it is returned as is.
 	 * </p>
@@ -183,13 +184,14 @@ public final class UtlString {
 		if (str.length() >= width)
 			return str;
 
-		final var paddingString = String.valueOf(padChar).repeat((width / 2) - (str.length() / 2) - 1);
+		final var paddingString = String.valueOf(padChar).repeat((width / 2) - (str.length() / 2));
 
 		return paddingString + str + paddingString;
 	}
 
 	/**
 	 * Centers a string in a given width. '-' is used to fill the remaining space.
+	 * The padding is equal on both sides of the string, even if the width is odd.
 	 * @param str The string to center.
 	 * @param width The width to center the string in.
 	 * @return The centered string.
