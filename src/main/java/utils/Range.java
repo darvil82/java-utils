@@ -113,7 +113,7 @@ public class Range implements Iterable<Integer> {
 	 *
 	 * @return The string representation
 	 */
-	public @NotNull String getRegexRange() {
+	public @NotNull String getRepresentation() {
 		return this.isRange()
 			? "{%d, %s}".formatted(this.start, "" + (this.isInfinite ? "..." : this.end))
 			: "{%d}".formatted(this.start);
@@ -162,6 +162,11 @@ public class Range implements Iterable<Integer> {
 		return this.contains(value, false, false);
 	}
 
+	/**
+	 * Offsets both the start and end values by the given offset. The range will be infinite if it was infinite before.
+	 * @param offset The offset to apply
+	 * @return The new range
+	 */
 	public @NotNull Range offset(int offset) {
 		if (offset == 0)
 			return this;
@@ -169,11 +174,21 @@ public class Range implements Iterable<Integer> {
 		return new Range(this.start + offset, this.isInfinite ? -1 : this.end + offset);
 	}
 
+	/**
+	 * Returns an iterator that iterates over the range. Both the start and end values are inclusive.
+	 * @return The iterator
+	 */
 	@Override
 	public @NotNull Iterator<Integer> iterator() {
 		return this.iterator(true, true);
 	}
 
+	/**
+	 * Returns an iterator that iterates over the range.
+	 * @param startInclusive Whether the start value is inclusive
+	 * @param endInclusive Whether the end value is inclusive
+	 * @return The iterator
+	 */
 	public @NotNull Iterator<Integer> iterator(boolean startInclusive, boolean endInclusive) {
 		return new Iterator<>() {
 			private int index = Range.this.start + (startInclusive ? 0 : 1);
@@ -192,6 +207,6 @@ public class Range implements Iterable<Integer> {
 
 	@Override
 	public String toString() {
-		return this.getRegexRange();
+		return this.getRepresentation();
 	}
 }
