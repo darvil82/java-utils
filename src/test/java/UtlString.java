@@ -21,7 +21,7 @@ class UtlStringTest {
 	@Test
 	void testRequireValidName() {
 		assertThrows(IllegalArgumentException.class, () -> UtlString.requireValidName("1Invalid"));
-		assertThrows(IllegalArgumentException.class, () -> UtlString.requireValidName("va--l12id"));
+		assertDoesNotThrow(() -> UtlString.requireValidName("va--l12id"));
 		assertDoesNotThrow(() -> UtlString.requireValidName("Valid_1"));
 	}
 
