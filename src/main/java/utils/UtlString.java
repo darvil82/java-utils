@@ -281,6 +281,12 @@ public final class UtlString {
 		return new Pair<>(buffWhitespace.toString(), str.substring(buffWhitespace.length()));
 	}
 
+	/**
+	 * Replaces all quotes in the given string with escaped quotes. For example, {@code "hello'} becomes
+	 * {@code \"testing\'}.
+	 * @param str the string to escape
+	 * @return the escaped string
+	 */
 	public static @NotNull String escapeQuotes(@NotNull String str) {
 		return str.replaceAll("(['\"])", "\\\\$1");
 	}
