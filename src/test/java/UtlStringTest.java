@@ -66,6 +66,14 @@ public class UtlStringTest {
 	}
 
 	@Test
+	void testIsNullOrBlank() {
+		assertTrue(UtlString.isNullOrBlank(null));
+		assertTrue(UtlString.isNullOrBlank(""));
+		assertTrue(UtlString.isNullOrBlank("   "));
+		assertFalse(UtlString.isNullOrBlank("Hello"));
+	}
+
+	@Test
 	void testSplit() {
 		String str = "Hello, World";
 		String[] split = UtlString.split(str, ',');

@@ -231,6 +231,16 @@ public final class UtlString {
 	}
 
 	/**
+	 * Returns true if the string given is {@code null} or blank.
+	 *
+	 * @param str the string to check
+	 * @return true if the string is {@code null} or blank
+	 */
+	public static boolean isNullOrBlank(@Nullable String str) {
+		return str == null || str.isBlank();
+	}
+
+	/**
 	 * Split a string by the given splitter. This is similar to {@link String#split(String)} but it will also ignore
 	 * spaces around the splitter.
 	 *
