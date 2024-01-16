@@ -24,10 +24,6 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
-repositories {
-    mavenCentral()
-}
-
 publishing {
     repositories {
         maven {
@@ -41,6 +37,8 @@ publishing {
             url = uri("https://repsy.io/mvn/darvil/java")
             credentials(PasswordCredentials::class)
         }
+
+        mavenLocal()
     }
 
     publications {
