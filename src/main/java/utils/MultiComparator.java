@@ -57,8 +57,13 @@ public class MultiComparator<T> {
 	public int compare(T first, T second) {
 		this.predicates.sort(Comparator.comparingInt(Pred::priority));
 		for (final Pred<T> p : this.predicates) {
-			if (p.predicateCb.test(first)) return -1;
-			if (p.predicateCb.test(second)) return 1;
+			boolean firstTest = p.predicateCb.test(first);
+			boolean secondTest = p.predicateCb.test(second);
+
+			if (firstTest && !secondTest)
+				return -1;
+			else if (!firstTest && secondTest)
+				return 1;
 		}
 		return 0;
 	}
