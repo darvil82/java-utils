@@ -12,13 +12,6 @@ public class UtlStringTest {
 	}
 
 	@Test
-	void testAllCharsMatch() {
-		assertTrue(UtlString.allCharsMatch("Hello", Character::isLetter));
-		assertTrue(UtlString.allCharsMatch("1221574", Character::isDigit));
-		assertFalse(UtlString.allCharsMatch("Hello ", Character::isLetter));
-	}
-
-	@Test
 	void testRequireValidName() {
 		assertThrows(IllegalArgumentException.class, () -> UtlString.requireValidName("1Invalid"));
 		assertDoesNotThrow(() -> UtlString.requireValidName("va--l12id"));

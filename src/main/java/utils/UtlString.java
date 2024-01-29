@@ -21,19 +21,6 @@ public final class UtlString {
 	}
 
 	/**
-	 * Returns {@code true} if all characters in the given {@code str} match the given {@code predicate}.
-	 * @param str The string to check.
-	 * @param predicate The predicate to test the characters with.
-	 * @return {@code true} if all characters in the given {@code str} match the given {@code predicate}.
-	 */
-	public static boolean allCharsMatch(@NotNull String str, @NotNull Predicate<Character> predicate) {
-		for (char chr : str.toCharArray()) {
-			if (!predicate.test(chr)) return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Check if a string is a valid name. A valid name must:
 	 * <ul>
 	 * <li>Contain at least one character</li>
@@ -50,8 +37,7 @@ public final class UtlString {
 		if (!Character.isAlphabetic(name.charAt(0)))
 			throw new IllegalArgumentException("name must start with an alphabetic character");
 
-		if (!UtlString.allCharsMatch(
-			name,
+		if (!name.chars().allMatch(
 			chr -> Character.isAlphabetic(chr) || Character.isDigit(chr) || chr == '_' || chr == '-'
 		))
 			throw new IllegalArgumentException("name must only contain alphabetic characters, numbers, underscores and dashes");
