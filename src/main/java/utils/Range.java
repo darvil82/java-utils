@@ -14,6 +14,8 @@ public class Range implements Iterable<Integer> {
 	public static final Range NONE = Range.of(0);
 	/** A range of 1. */
 	public static final Range ONE = Range.of(1);
+	/** A range between 0 and 1. */
+	public static final Range NONE_OR_ONE = Range.from(0).to(1);
 
 	private final int start, end;
 	/** Whether the range is infinite. */
