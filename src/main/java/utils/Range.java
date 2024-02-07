@@ -117,7 +117,7 @@ public class Range implements Iterable<Integer> {
 	 */
 	public @NotNull String getRepresentation() {
 		return this.isRange()
-			? "{%d, %s}".formatted(this.start, "" + (this.isInfinite ? "..." : this.end))
+			? "{%d..%s}".formatted(this.start, "" + (this.isInfinite ? "" : this.end))
 			: "{%d}".formatted(this.start);
 	}
 
