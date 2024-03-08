@@ -81,19 +81,24 @@ public final class UtlReflection {
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeException("Unable to find a public constructor for the class '" + clazz.getName()
 				+ """
-			'. Please, make sure:
+			'. Please make sure:
 			  - This class has a public constructor with the parameters: %s
-			  - This is a static class. (Not an inner class)""".formatted(argTypes)
+			  - This is a static class. (Not an inner class)
+			  - This class is not defined in a method.
+			  - This class is visible to external dependencies.""".formatted(argTypes),
+				e
 			);
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(
 				"Unable to gain access to the class '" + clazz.getName()
-					+ "'. Please, make sure this class is visible to Lanat."
+					+ "'. Please make sure this class is visible to external dependencies.",
+				e
 			);
 		} catch (InstantiationException e) {
 			throw new RuntimeException(
 				"Unable to instantiate the class '" + clazz.getName()
-					+ "'. Please, make sure this class is not abstract."
+					+ "'. Please make sure this class is not abstract.",
+				e
 			);
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException(e);
