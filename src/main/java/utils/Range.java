@@ -19,7 +19,7 @@ public class Range implements Iterable<Integer> {
 
 	private final int start, end;
 	/** Whether the range is infinite. */
-	public final boolean isInfinite;
+	private final boolean isInfinite;
 
 	/**
 	 * Creates a new range with the given start and end values. If the end value is -1, the range end value
@@ -77,14 +77,19 @@ public class Range implements Iterable<Integer> {
 		return new Range(value, value);
 	}
 
-	/** Returns {@code true} if this is representing a range, and not a single value. */
-	public boolean isRange() {
-		return this.start != this.end;
+	/** Returns {@code true} if this is representing a single value. */
+	public boolean isSimple() {
+		return this.start == this.end;
 	}
 
 	/** Returns {@code true} if the range is 0. */
 	public boolean isZero() {
 		return this.end == 0;
+	}
+
+	/** Returns {@code true} if the end value is infinity. */
+	public boolean isInfinite() {
+		return this.isInfinite;
 	}
 
 	/** Returns the start value. */
@@ -104,7 +109,7 @@ public class Range implements Iterable<Integer> {
 	 * @return The string representation
 	 */
 	public @NotNull String getMessage(@NotNull String kind) {
-		return this.isRange()
+		return !this.isSimple()
 			? "from %d to %s %s".formatted(this.start, this.isInfinite ? "any number of" : this.end, kind + 's')
 			: UtlString.plural(kind, this.start);
 	}
@@ -116,7 +121,7 @@ public class Range implements Iterable<Integer> {
 	 * @return The string representation
 	 */
 	public @NotNull String getRepresentation() {
-		return this.isRange()
+		return !this.isSimple()
 			? "{%d..%s}".formatted(this.start, "" + (this.isInfinite ? "" : this.end))
 			: "{%d}".formatted(this.start);
 	}
@@ -129,7 +134,7 @@ public class Range implements Iterable<Integer> {
 	 * @return {@code true} if the value is in the range
 	 */
 	public boolean contains(int value, boolean startInclusive, boolean endInclusive) {
-		if (!this.isRange()) {
+		if (this.isSimple()) {
 			return value == this.start;
 		}
 
@@ -179,6 +184,7 @@ public class Range implements Iterable<Integer> {
 	/**
 	 * Returns an iterator that iterates over the range. Both the start and end values are inclusive.
 	 * @return The iterator
+	 * @see #iterator(boolean, boolean)
 	 */
 	@Override
 	public @NotNull Iterator<Integer> iterator() {
@@ -205,6 +211,46 @@ public class Range implements Iterable<Integer> {
 				return this.index++;
 			}
 		};
+	}
+
+
+	/**
+	 * Returns an array of all the values in the range, inclusive.
+	 * <p>
+	 * If the range is infinite, an {@link UnsupportedOperationException} will be thrown.
+	 * @return The array
+	 * @see #toArray(boolean, boolean)
+	 * @throws UnsupportedOperationException if the range is infinite
+	 */
+	public int[] toArray() {
+		return this.toArray(true, true);
+	}
+
+	/**
+	 * Returns an array of all the values in the range.
+	 * <p>
+	 * If the range is infinite, an {@link UnsupportedOperationException} will be thrown.
+	 * </p>
+	 * The array will always contain at least one element.
+	 * @param startInclusive Whether the start value is inclusive
+	 * @param endInclusive Whether the end value is inclusive
+	 * @return The array
+	 * @throws UnsupportedOperationException if the range is infinite
+	 */
+	public int[] toArray(boolean startInclusive, boolean endInclusive) {
+		if (this.isInfinite)
+			throw new UnsupportedOperationException("cannot convert infinite range to list");
+
+		if (this.isSimple())
+			return new int[] { this.start };
+
+		var arr = new int[this.end - this.start - (startInclusive ? 0 : 1) - (endInclusive ? 0 : 1) + 1];
+		var iterator = this.iterator(startInclusive, endInclusive);
+
+		for (int i = 0; i < arr.length; i++)
+			arr[i] = iterator.next();
+
+		return arr;
 	}
 
 	@Override

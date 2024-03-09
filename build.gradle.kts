@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.darvil"
-version = "0.4.1"
+version = "0.5.0"
 description = "Utilities for Java"
 
 repositories {
