@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.darvil"
-version = "0.5.0"
+version = "0.6.0"
 description = "Utilities for Java"
 
 repositories {
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:24.0.0")
+    implementation("org.jetbrains:annotations:24.1.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

@@ -3,7 +3,6 @@ package utils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -121,11 +120,11 @@ public final class UtlString {
 	}
 
 	/**
-	 * Adds <code>padCount</code> characters (specified with <code>padChar</code>) at the left of the string. If the
+	 * Adds {@code padCount} characters (specified with {@code padChar}) at the left of the string. If the
 	 * string has multiple lines, the padding is added on all of them.
 	 *
 	 * @param str The string to pad.
-	 * @param padCount The amount of characters to add.
+	 * @param padCount The number of characters to add.
 	 * @param padChar The character to use for padding.
 	 * @return The padded string.
 	 */
@@ -144,7 +143,7 @@ public final class UtlString {
 	}
 
 	/**
-	 * Adds <code>padCount</code> space characters at the left of the string. If the string has multiple lines, the
+	 * Adds {@code padCount} space characters at the left of the string. If the string has multiple lines, the
 	 * padding is added on all of them.
 	 *
 	 * @param str The string to pad.
@@ -195,7 +194,7 @@ public final class UtlString {
 	}
 
 	/**
-	 * Returns the count given appended to the string given. An <code>'s'</code> will be appended at the end if the
+	 * Returns the count given appended to the string given. An {@code 's'} will be appended at the end if the
 	 * count is not 1.
 	 *
 	 * @param str the string to append to
