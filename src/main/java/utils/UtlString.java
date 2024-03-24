@@ -13,10 +13,15 @@ public final class UtlString {
 	private static final char ESCAPE_CHAR = 0x1b;
 
 	/**
-	 * Get the longest line from the contents of a string. Lines are separated by newlines.
+	 * Get the longest line from the contents of a string. Lines are separated by newlines and
+	 * the length is calculated without counting the escape sequences.
 	 */
 	public static @NotNull String getLongestLine(@NotNull String str) {
-		return Stream.of(str.split("\n")).min((a, b) -> b.length() - a.length()).orElse("");
+		return Stream.of(str.split("\n"))
+			.map(s -> new Pair<>(s, UtlString.getLengthIgnoreSequences(s)))
+			.min((a, b) -> b.second() - a.second())
+			.map(Pair::first)
+			.orElse("");
 	}
 
 	/**
@@ -191,6 +196,13 @@ public final class UtlString {
 	 */
 	public static @NotNull String removeSequences(@NotNull String str) {
 		return str.replaceAll(ESCAPE_CHAR + "\\[[\\d;]*m", "");
+	}
+
+	/**
+	 * Returns the length of the string, ignoring any formatting sequences.
+	 */
+	public static int getLengthIgnoreSequences(@NotNull String str) {
+		return UtlString.removeSequences(str).length();
 	}
 
 	/**
