@@ -10,7 +10,7 @@ public final class UtlString {
 	private UtlString() {}
 
 	/** Escape character used for terminal formatting */
-	private static final char ESCAPE_CHAR = 0x1b;
+	public static final char ESCAPE_CHAR = 0x1b;
 
 	/**
 	 * Get the longest line from the contents of a string. Lines are separated by newlines and
