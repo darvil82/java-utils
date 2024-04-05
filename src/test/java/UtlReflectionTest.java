@@ -17,20 +17,20 @@ public class UtlReflectionTest {
 	public void testInstantiate() {
 		{
 			var instance = UtlReflection.instantiate(TestClass.class);
-			assertEquals(0xCafeBabe, instance.a);
-			assertEquals(0xCafeBabe, instance.b);
+			assertEquals(TestClass.CONSTANT_OK, instance.a);
+			assertEquals(TestClass.CONSTANT_OK, instance.b);
 		}
 
 		{
 			var instance = UtlReflection.instantiate(TestClass.class, List.of(0xDeadBeef));
-			assertEquals(0xDeadBeef, instance.a);
-			assertEquals(0xCafeBabe, instance.b);
+			assertEquals(TestClass.CONSTANT_BAD, instance.a);
+			assertEquals(TestClass.CONSTANT_OK, instance.b);
 		}
 
 		{
 			var instance = UtlReflection.instantiate(TestClass.class, List.of(0xDeadBeef, 0xDeadBeef));
-			assertEquals(0xDeadBeef, instance.a);
-			assertEquals(0xDeadBeef, instance.b);
+			assertEquals(TestClass.CONSTANT_BAD, instance.a);
+			assertEquals(TestClass.CONSTANT_BAD, instance.b);
 		}
 	}
 
@@ -45,14 +45,16 @@ public class UtlReflectionTest {
 
 
 	public static class TestClass {
+		public static final int CONSTANT_OK = 0xCafeBabe;
+		public static final int CONSTANT_BAD = 0xDeadBeef;
 		public int a, b;
 
 		public TestClass() {
-			this(0xCafeBabe);
+			this(CONSTANT_OK);
 		}
 
 		public TestClass(Integer a) {
-			this(a, 0xCafeBabe);
+			this(a, CONSTANT_OK);
 		}
 
 		public TestClass(Integer a, Integer b) {

@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 
 public final class UtlReflection {
@@ -28,14 +27,20 @@ public final class UtlReflection {
 	}
 
 	/**
-	 * Returns whether the given method has the given parameters in the given order.
-	 *
+	 * Returns {@code true} if the given parameter types are assignable to the parameter types of the given method.
 	 * @param method The method to check.
-	 * @param parameters The parameters to check.
-	 * @return Whether the given method has the given parameters in the given order.
+	 * @param paramTypes The parameter types to check.
+	 * @return {@code true} if the given parameter types are assignable to the parameter types of the given method.
 	 */
-	public static boolean hasParameters(Method method, Class<?>... parameters) {
-		return Arrays.equals(method.getParameterTypes(), parameters);
+	public static boolean hasParameters(Method method, Class<?>... paramTypes) {
+		var parameterTypes = method.getParameterTypes();
+		if (parameterTypes.length != paramTypes.length) return false;
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (!paramTypes[i].isAssignableFrom(parameterTypes[i])) return false;
+		}
+
+		return true;
 	}
 
 	/**
