@@ -7,13 +7,15 @@ group = "io.github.darvil82"
 version = "0.7.1"
 description = "Utilities for Java."
 
-repositories {
-    mavenCentral()
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
 }
 
-mavenPublishing {
-	publishToMavenCentral()
-	signAllPublications()
+
+repositories {
+    mavenCentral()
+	mavenLocal()
 }
 
 dependencies {
@@ -22,8 +24,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
+mavenPublishing {
+	publishToMavenCentral()
+	signAllPublications()
 }
 
 mavenPublishing {
