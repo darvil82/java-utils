@@ -27,9 +27,6 @@ dependencies {
 mavenPublishing {
 	publishToMavenCentral()
 	signAllPublications()
-}
-
-mavenPublishing {
 	coordinates(group.toString(), name.toString(), version.toString())
 
 	pom {
