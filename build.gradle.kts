@@ -5,7 +5,7 @@ plugins {
 
 group = "io.github.darvil82"
 version = "0.7.1"
-description = "Utilities for Java"
+description = "Utilities for Java."
 
 repositories {
     mavenCentral()
