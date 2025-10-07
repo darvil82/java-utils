@@ -1,14 +1,20 @@
 plugins {
     java
     `maven-publish`
+	id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
-group = "com.darvil"
+group = "io.github.darvil82"
 version = "0.7.1"
 description = "Utilities for Java"
 
 repositories {
     mavenCentral()
+}
+
+mavenPublishing {
+	publishToMavenCentral()
+	signAllPublications()
 }
 
 dependencies {
@@ -18,34 +24,37 @@ dependencies {
 }
 
 java {
-    withJavadocJar()
-    withSourcesJar()
-
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "Github"
-            url = uri("https://maven.pkg.github.com/darvil82/java-utils")
-            credentials(PasswordCredentials::class)
-        }
+mavenPublishing {
+	coordinates(group.toString(), name.toString(), version.toString())
 
-        maven {
-            name = "Repsy"
-            url = uri("https://api.repsy.io/mvn/darvil/java")
-            credentials(PasswordCredentials::class)
-        }
-
-        mavenLocal()
-    }
-
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
+	pom {
+		name.set("Java Utils")
+		description.set(project.description)
+		inceptionYear.set("2022")
+		url.set("https://github.com/darvil82/java-utils")
+		licenses {
+			license {
+				name.set("MIT License")
+				url.set("https://opensource.org/license/mit")
+				distribution.set("https://opensource.org/license/mit")
+			}
+		}
+		developers {
+			developer {
+				id.set("darvil82")
+				name.set("darvil82")
+				url.set("https://github.com/darvil82/")
+			}
+		}
+		scm {
+			url.set("https://github.com/darvil82/java-utils")
+			connection.set("scm:git:git://github.com/darvil82/java-utils.git")
+			developerConnection.set("scm:git:ssh://git@github.com/darvil82/java-utils.git")
+		}
+	}
 }
 
 tasks.withType<JavaCompile>().configureEach {
