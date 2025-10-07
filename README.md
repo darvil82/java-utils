@@ -2,6 +2,8 @@
 
 A collection of some of my utility classes.
 
+Javadocs for the latest stable version are provided online [here](https://darvil82.github.io/java-utils/utils/module-summary.html).
+
 ## Installation
 
 The package is currently available on Maven Central.
