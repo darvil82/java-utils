@@ -1,8 +1,12 @@
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.darvil82/utils)](https://central.sonatype.com/artifact/io.github.darvil82/utils)
+[![APIdia](https://apidia.net/mvn/io.github.darvil82/utils/badge.svg)](https://apidia.net/mvn/io.github.darvil82/utils)
+
 # Java Utilities
 
 A collection of some of my utility classes.
 
-Javadocs for the latest stable version are provided online [here](https://darvil82.github.io/java-utils/utils/module-summary.html).
+Javadocs for the latest stable version are available online hosted on [APIdia](https://apidia.net/mvn/io.github.darvil82/utils)
+and on [GitHub pages](https://darvil82.github.io/java-utils).
 
 ## Installation
 
