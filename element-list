@@ -1,3 +1,3 @@
-module:darvil.utils
-utils
-utils.exceptions
+module:io.github.darvil.utils
+io.github.darvil.utils
+io.github.darvil.utils.exceptions
