@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"utils"}];updateSearchResults();
+moduleSearchIndex = [{"l":"darvil.utils"}];updateSearchResults();

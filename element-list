@@ -1,3 +1,3 @@
-module:utils
+module:darvil.utils
 utils
 utils.exceptions
