@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.darvil82"
-version = "0.7.1"
+version = "0.8"
 description = "Utilities for Java."
 
 

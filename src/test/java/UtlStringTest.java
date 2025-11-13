@@ -12,13 +12,6 @@ public class UtlStringTest {
 	}
 
 	@Test
-	void testRequireValidName() {
-		assertThrows(IllegalArgumentException.class, () -> UtlString.requireValidName("1Invalid"));
-		assertDoesNotThrow(() -> UtlString.requireValidName("va--l12id"));
-		assertDoesNotThrow(() -> UtlString.requireValidName("Valid_1"));
-	}
-
-	@Test
 	void testWrap() {
 		String str = "This is a long line that should be wrapped";
 		String wrapped = UtlString.wrap(str, 10);
