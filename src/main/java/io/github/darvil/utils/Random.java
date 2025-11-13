@@ -1,4 +1,4 @@
-package io.github.darvil82.utils;
+package io.github.darvil.utils;
 
 public final class Random {
 	private Random() {}

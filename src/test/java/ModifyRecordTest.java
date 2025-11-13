@@ -1,4 +1,4 @@
-import io.github.darvil82.utils.ModifyRecord;
+import io.github.darvil.utils.ModifyRecord;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

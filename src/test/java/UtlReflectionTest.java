@@ -1,4 +1,4 @@
-import io.github.darvil82.utils.UtlReflection;
+import io.github.darvil.utils.UtlReflection;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
