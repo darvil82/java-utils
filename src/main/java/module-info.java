@@ -1,4 +1,4 @@
-module utils {
+module darvil.utils {
 	requires org.jetbrains.annotations;
 
 	exports utils;
