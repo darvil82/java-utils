@@ -1,4 +1,4 @@
-package utils;
+package io.github.darvil.utils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

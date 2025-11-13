@@ -1,5 +1,5 @@
+import io.github.darvil.utils.UtlString;
 import org.junit.jupiter.api.Test;
-import utils.UtlString;
 
 import static org.junit.jupiter.api.Assertions.*;
 

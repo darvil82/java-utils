@@ -1,4 +1,4 @@
-package utils;
+package io.github.darvil.utils;
 
 public final class Random {
 	private Random() {}

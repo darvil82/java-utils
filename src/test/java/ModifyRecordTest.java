@@ -1,5 +1,5 @@
+import io.github.darvil.utils.ModifyRecord;
 import org.junit.jupiter.api.Test;
-import utils.ModifyRecord;
 
 import static org.junit.jupiter.api.Assertions.*;
 

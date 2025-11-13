@@ -1,5 +1,5 @@
+import io.github.darvil.utils.LoopPool;
 import org.junit.jupiter.api.Test;
-import utils.LoopPool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

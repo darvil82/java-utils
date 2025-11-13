@@ -1,5 +1,5 @@
+import io.github.darvil.utils.Range;
 import org.junit.jupiter.api.Test;
-import utils.Range;
 
 import static org.junit.jupiter.api.Assertions.*;
 
