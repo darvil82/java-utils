@@ -1,6 +1,6 @@
-module darvil.utils {
+module io.github.darvil82.utils {
 	requires org.jetbrains.annotations;
 
-	exports utils;
-	exports utils.exceptions;
+	exports io.github.darvil82.utils;
+	exports io.github.darvil82.utils.exceptions;
 }

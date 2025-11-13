@@ -1,4 +1,4 @@
-package utils.exceptions;
+package io.github.darvil82.utils.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 

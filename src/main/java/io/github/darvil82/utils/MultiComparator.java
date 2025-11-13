@@ -1,4 +1,4 @@
-package utils;
+package io.github.darvil82.utils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
