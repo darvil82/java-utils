@@ -18,8 +18,6 @@ public class Range implements Iterable<Integer> {
 	public static final Range NONE_OR_ONE = Range.from(0).to(1);
 
 	private final int start, end;
-	/** Whether the range is infinite. */
-	private final boolean isInfinite;
 
 	/**
 	 * Creates a new range with the given start and end values. If the end value is -1, the range end value
@@ -28,14 +26,13 @@ public class Range implements Iterable<Integer> {
 	 * @param end The end value, or -1 for infinity
 	 */
 	private Range(int start, int end) {
-		this.isInfinite = end == -1;
-		if (start < 0)
-			throw new IllegalArgumentException("start value cannot be negative");
-		if (!this.isInfinite && start > end)
-			throw new IllegalArgumentException("start value cannot be higher than end value");
-
 		this.start = start;
 		this.end = end;
+
+		if (start < 0)
+			throw new IllegalArgumentException("start value cannot be negative");
+		if (!this.isInfinite() && start > end)
+			throw new IllegalArgumentException("start value cannot be higher than end value");
 	}
 
 	public static class RangeBuilder {
@@ -89,7 +86,7 @@ public class Range implements Iterable<Integer> {
 
 	/** Returns {@code true} if the end value is infinity. */
 	public boolean isInfinite() {
-		return this.isInfinite;
+		return this.end == -1;
 	}
 
 	/** Returns the start value. */
@@ -99,7 +96,7 @@ public class Range implements Iterable<Integer> {
 
 	/** Returns the end value, or {@link Integer#MAX_VALUE} if the range is infinite. */
 	public int end() {
-		return this.isInfinite ? Integer.MAX_VALUE : this.end;
+		return this.isInfinite() ? Integer.MAX_VALUE : this.end;
 	}
 
 	/**
@@ -110,19 +107,19 @@ public class Range implements Iterable<Integer> {
 	 */
 	public @NotNull String getMessage(@NotNull String kind) {
 		return !this.isSimple()
-			? "from %d to %s %s".formatted(this.start, this.isInfinite ? "any number of" : this.end, kind + 's')
+			? "from %d to %s %s".formatted(this.start, this.isInfinite() ? "any number of" : this.end, kind + 's')
 			: UtlString.plural(kind, this.start);
 	}
 
 	/**
-	 * Returns a string representation of the range, such as <code>"{3, 5}"</code> or <code>"{3}"</code>. If the end
-	 * value is {@link Short#MAX_VALUE}, it will be represented as <code>"..."</code>.
+	 * Returns a string representation of the range, such as {@code "{3..5}"} or {@code "{3}"}.
+	 * If the range is infinite, the end value will not be shown. ({@code "{7..}"})
 	 *
 	 * @return The string representation
 	 */
 	public @NotNull String getRepresentation() {
 		return !this.isSimple()
-			? "{%d..%s}".formatted(this.start, "" + (this.isInfinite ? "" : this.end))
+			? "{%d..%s}".formatted(this.start, (this.isInfinite() ? "" : this.end))
 			: "{%d}".formatted(this.start);
 	}
 
@@ -138,17 +135,11 @@ public class Range implements Iterable<Integer> {
 			return value == this.start;
 		}
 
-		boolean isInStart = startInclusive
-			? value >= this.start
-			: value > this.start;
-
-		// if the end value is infinity, it will always be below the end value
-		boolean isInEnd = this.isInfinite || (endInclusive
-			? value <= this.end
-			: value < this.end
+		return (
+			value + (startInclusive ? 1 : 0) > this.start
+			// if the end value is infinity, it will always be below the end value
+			&& (this.isInfinite() || value < this.end + (endInclusive ? 1 : 0))
 		);
-
-		return isInStart && isInEnd;
 	}
 
 	/**
@@ -178,7 +169,7 @@ public class Range implements Iterable<Integer> {
 		if (offset == 0)
 			return this;
 
-		return new Range(this.start + offset, this.isInfinite ? -1 : this.end + offset);
+		return new Range(this.start + offset, this.isInfinite() ? -1 : this.end + offset);
 	}
 
 	/**
@@ -238,7 +229,7 @@ public class Range implements Iterable<Integer> {
 	 * @throws UnsupportedOperationException if the range is infinite
 	 */
 	public int[] toArray(boolean startInclusive, boolean endInclusive) {
-		if (this.isInfinite)
+		if (this.isInfinite())
 			throw new UnsupportedOperationException("cannot convert infinite range to list");
 
 		if (this.isSimple())
